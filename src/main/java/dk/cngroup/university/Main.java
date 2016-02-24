@@ -1,10 +1,8 @@
 package dk.cngroup.university;
 
 import dk.cngroup.university.exception.AbstractCalculatorException;
-import dk.cngroup.university.exception.MalformedInputException;
-import dk.cngroup.university.exception.NoInputsException;
-import dk.cngroup.university.input.CalculatorInput;
-import dk.cngroup.university.input.NumberInput;
+import dk.cngroup.university.input.enumeration.InputType;
+import dk.cngroup.university.input.iface.IGeneralInput;
 
 import java.io.FileInputStream;
 import java.util.LinkedList;
@@ -22,10 +20,10 @@ public class Main {
         }
 
 		try {
-            List<NumberInput> inputs = new LinkedList<>();
-			CalculatorInput input = parser.parseNextLine();
-			while (!input.isDone()) {
-                inputs.add((NumberInput)input);
+            List<IGeneralInput> inputs = new LinkedList<>();
+			IGeneralInput input = parser.parseNextLine();
+			while (input.getType() != InputType.DONE) {
+                inputs.add(input);
 				input = parser.parseNextLine();
 			}
 

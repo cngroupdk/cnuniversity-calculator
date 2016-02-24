@@ -1,6 +1,9 @@
 package dk.cngroup.university.input;
 
-public class NumberInput extends CalculatorInput {
+import dk.cngroup.university.input.enumeration.InputType;
+import dk.cngroup.university.input.iface.IGeneralInput;
+
+public class NumberInput implements IGeneralInput {
 
     private Integer number;
 
@@ -9,8 +12,8 @@ public class NumberInput extends CalculatorInput {
     }
 
     @Override
-    public boolean isDone() {
-        return false;
+    public InputType getType() {
+        return InputType.NUMBER;
     }
 
     public int getNumber(){
