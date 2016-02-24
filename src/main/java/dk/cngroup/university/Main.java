@@ -1,5 +1,8 @@
 package dk.cngroup.university;
 
+import dk.cngroup.university.input.CalculatorInput;
+import dk.cngroup.university.input.NumberInput;
+
 import java.io.FileInputStream;
 
 public class Main {
@@ -17,7 +20,8 @@ public class Main {
 
 		CalculatorInput input = parser.parseNextLine();
 		while (!input.isDone()) {
-			result += input.getNumber();
+			NumberInput nInput = (NumberInput)input;
+			result += nInput.getNumber();
 			input = parser.parseNextLine();
 		}
 

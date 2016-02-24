@@ -1,5 +1,8 @@
 package dk.cngroup.university;
 
+import dk.cngroup.university.input.CalculatorInput;
+import dk.cngroup.university.input.DoneInput;
+import dk.cngroup.university.input.NumberInput;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -12,6 +15,7 @@ public class ParserTest {
     public void shouldReturnDoneInput() {
         Parser p = new Parser(new ByteArrayInputStream("done\nasdf".getBytes()));
         CalculatorInput input = p.parseNextLine();
+        Assert.assertTrue(input instanceof DoneInput);
         Assert.assertTrue(input.isDone());
     }
 
@@ -19,14 +23,16 @@ public class ParserTest {
     public void shouldReturnNumberInput() {
         Parser p = new Parser(new ByteArrayInputStream("85\nasdf".getBytes()));
         CalculatorInput input = p.parseNextLine();
-        Assert.assertNotNull(input.getNumber());
+        Assert.assertTrue(input instanceof NumberInput);
+        Assert.assertFalse(input.isDone());
     }
 
     @Test
     public void shouldReturnCorrectNumberInput() {
         Parser p = new Parser(new ByteArrayInputStream("85\nasdf".getBytes()));
         CalculatorInput input = p.parseNextLine();
-        Assert.assertEquals(85, input.getNumber());
+        Assert.assertTrue(input instanceof NumberInput);
+        Assert.assertEquals(85, ((NumberInput)input).getNumber());
     }
 
     @Test
@@ -34,11 +40,11 @@ public class ParserTest {
         Parser p = new Parser(getClass().getResourceAsStream("/input.txt"));
 
         CalculatorInput input = p.parseNextLine();
-        Assert.assertEquals(1, input.getNumber());
+        Assert.assertEquals(1, ((NumberInput)input).getNumber());
         input = p.parseNextLine();
-        Assert.assertEquals(2, input.getNumber());
+        Assert.assertEquals(2, ((NumberInput)input).getNumber());
         input = p.parseNextLine();
-        Assert.assertEquals(3, input.getNumber());
+        Assert.assertEquals(3, ((NumberInput)input).getNumber());
         input = p.parseNextLine();
         Assert.assertTrue(input.isDone());
     }
