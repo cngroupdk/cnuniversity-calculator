@@ -1,3 +1,5 @@
+package dk.cngroup.university;
+
 public class CalculatorInput {
 
     private Integer number;
