@@ -4,8 +4,7 @@ import dk.cngroup.university.exception.MalformedInputException;
 import dk.cngroup.university.input.DoneSignal;
 import dk.cngroup.university.input.calculator.CalculatorInput;
 import dk.cngroup.university.input.calculator.NumberInput;
-import dk.cngroup.university.input.calculator.operation.Adding;
-import dk.cngroup.university.input.calculator.operation.Division;
+import dk.cngroup.university.input.calculator.operation.*;
 import dk.cngroup.university.input.iface.IGeneralInput;
 import org.junit.Assert;
 import org.junit.Test;
@@ -51,6 +50,26 @@ public class ParserTest {
     }
 
     @Test
+    public void shouldReturnSubtractionOperation() {
+        Parser p = new Parser(new ByteArrayInputStream("subtract\nasdf".getBytes()));
+        IGeneralInput input = p.parseNextLine();
+        Assert.assertTrue(input.isCalculatorInput());
+        CalculatorInput cInput = (CalculatorInput)input;
+        Assert.assertTrue(cInput.isOperation());
+        Assert.assertTrue(cInput instanceof Subtraction);
+    }
+
+    @Test
+    public void shouldReturnMultiplicationOperation() {
+        Parser p = new Parser(new ByteArrayInputStream("multiply\nasdf".getBytes()));
+        IGeneralInput input = p.parseNextLine();
+        Assert.assertTrue(input.isCalculatorInput());
+        CalculatorInput cInput = (CalculatorInput)input;
+        Assert.assertTrue(cInput.isOperation());
+        Assert.assertTrue(cInput instanceof Multiplication);
+    }
+
+    @Test
     public void shouldReturnDivisionOperation() {
         Parser p = new Parser(new ByteArrayInputStream("divide\nasdf".getBytes()));
         IGeneralInput input = p.parseNextLine();
@@ -58,6 +77,16 @@ public class ParserTest {
         CalculatorInput cInput = (CalculatorInput)input;
         Assert.assertTrue(cInput.isOperation());
         Assert.assertTrue(cInput instanceof Division);
+    }
+
+    @Test
+    public void shouldReturnModulusOperation() {
+        Parser p = new Parser(new ByteArrayInputStream("mod\nasdf".getBytes()));
+        IGeneralInput input = p.parseNextLine();
+        Assert.assertTrue(input.isCalculatorInput());
+        CalculatorInput cInput = (CalculatorInput)input;
+        Assert.assertTrue(cInput.isOperation());
+        Assert.assertTrue(cInput instanceof Modulus);
     }
 
     @Test(expected = MalformedInputException.class)
