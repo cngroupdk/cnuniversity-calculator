@@ -1,10 +1,13 @@
 package dk.cngroup.university;
 
 import dk.cngroup.university.exception.MalformedInputException;
+import dk.cngroup.university.exception.NoInputsException;
 import dk.cngroup.university.input.CalculatorInput;
 import dk.cngroup.university.input.NumberInput;
 
 import java.io.FileInputStream;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Main {
 
@@ -17,21 +20,22 @@ public class Main {
             parser = new Parser(new FileInputStream(arguments[0]));
         }
 
-		int result = 0;
-
 		try {
+            List<NumberInput> inputs = new LinkedList<NumberInput>();
 			CalculatorInput input = parser.parseNextLine();
 			while (!input.isDone()) {
-				NumberInput nInput = (NumberInput)input;
-				result += nInput.getNumber();
+                inputs.add((NumberInput)input);
 				input = parser.parseNextLine();
 			}
+
+            Calculator calculator = new Calculator(inputs);
+            System.out.println(calculator.calculate());
+
 		} catch (MalformedInputException e) {
 			System.out.println(e.getMessage());
-			return;
-		}
-
-		System.out.println(result);
+        } catch (NoInputsException e) {
+            System.out.println(e.getMessage());
+        }
 
 	}
 
