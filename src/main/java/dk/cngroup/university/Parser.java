@@ -1,6 +1,7 @@
 package dk.cngroup.university;
 
 import org.apache.commons.lang3.StringUtils;
+import dk.cngroup.university.exception.MalformedInputException;
 import dk.cngroup.university.input.CalculatorInput;
 import dk.cngroup.university.input.DoneInput;
 import dk.cngroup.university.input.NumberInput;
@@ -17,20 +18,16 @@ public class Parser {
         }
 
 
-        public CalculatorInput parseNextLine(){
+        public CalculatorInput parseNextLine() throws MalformedInputException {
             String line = scanner.next();
-            CalculatorInput input = null;
 
             if (line.equals(DoneInput.KEYWORD)) {
-                input = new DoneInput();
+                return new DoneInput();
             } else if (StringUtils.isNumeric(line)) {
-                input = new NumberInput(Integer.parseInt(line));
+                return new NumberInput(Integer.parseInt(line));
             } else {
-                System.out.println("not a number");
-                System.exit(0);
+                throw new MalformedInputException();
             }
-
-            return input;
         }
 
 }

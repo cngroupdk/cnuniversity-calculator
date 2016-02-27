@@ -1,5 +1,6 @@
 package dk.cngroup.university;
 
+import dk.cngroup.university.exception.MalformedInputException;
 import dk.cngroup.university.input.CalculatorInput;
 import dk.cngroup.university.input.DoneInput;
 import dk.cngroup.university.input.NumberInput;
@@ -33,6 +34,12 @@ public class ParserTest {
         CalculatorInput input = p.parseNextLine();
         Assert.assertTrue(input instanceof NumberInput);
         Assert.assertEquals(85, ((NumberInput)input).getNumber());
+    }
+
+    @Test(expected = MalformedInputException.class)
+    public void shouldThrowMalformedInputException() {
+        Parser p = new Parser(new ByteArrayInputStream("sdsd\nasdf".getBytes()));
+        p.parseNextLine();
     }
 
     @Test

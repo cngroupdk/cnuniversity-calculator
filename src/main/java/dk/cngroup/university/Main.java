@@ -1,5 +1,6 @@
 package dk.cngroup.university;
 
+import dk.cngroup.university.exception.MalformedInputException;
 import dk.cngroup.university.input.CalculatorInput;
 import dk.cngroup.university.input.NumberInput;
 
@@ -18,11 +19,16 @@ public class Main {
 
 		int result = 0;
 
-		CalculatorInput input = parser.parseNextLine();
-		while (!input.isDone()) {
-			NumberInput nInput = (NumberInput)input;
-			result += nInput.getNumber();
-			input = parser.parseNextLine();
+		try {
+			CalculatorInput input = parser.parseNextLine();
+			while (!input.isDone()) {
+				NumberInput nInput = (NumberInput)input;
+				result += nInput.getNumber();
+				input = parser.parseNextLine();
+			}
+		} catch (MalformedInputException e) {
+			System.out.println(e.getMessage());
+			return;
 		}
 
 		System.out.println(result);
