@@ -1,12 +1,12 @@
 package dk.cngroup.university;
 
 import dk.cngroup.university.exception.NoInputsException;
-import dk.cngroup.university.input.DoneSignal;
-import dk.cngroup.university.input.NumberInput;
+import dk.cngroup.university.input.calculator.CalculatorInput;
+import dk.cngroup.university.input.calculator.NumberInput;
 import org.junit.Assert;
 import dk.cngroup.university.input.iface.IGeneralInput;
-import dk.cngroup.university.input.operation.Adding;
-import dk.cngroup.university.input.operation.Division;
+import dk.cngroup.university.input.calculator.operation.Adding;
+import dk.cngroup.university.input.calculator.operation.Division;
 import org.junit.Test;
 
 import java.util.LinkedList;
@@ -25,7 +25,7 @@ public class CalculatorTest {
 
     @Test
     public void testCalculate() {
-        LinkedList<IGeneralInput> inputs = new LinkedList<>();
+        LinkedList<CalculatorInput> inputs = new LinkedList<>();
         inputs.add(new NumberInput(3));
         inputs.add(new NumberInput(5));
         inputs.add(new Division());
@@ -38,7 +38,7 @@ public class CalculatorTest {
 
     @Test
     public void testTwoCalculations() {
-        LinkedList<IGeneralInput> inputs = new LinkedList<>();
+        LinkedList<CalculatorInput> inputs = new LinkedList<>();
         inputs.add(new NumberInput(1));
         inputs.add(new NumberInput(2));
         Calculator calculator = new Calculator(inputs);
@@ -49,16 +49,6 @@ public class CalculatorTest {
         inputs.add(new NumberInput(2));
         calculator.setInputs(inputs);
         Assert.assertEquals(6, calculator.calculate());
-    }
-
-    // we would not write a test like this in real world - we do not want out Calculator to crash like this
-    // this test is here just to demonstrate the poor design
-    @Test(expected = ClassCastException.class)
-    public void crashTest() {
-        LinkedList<IGeneralInput> inputs = new LinkedList<>();
-        inputs.add(new DoneSignal());
-        Calculator calculator = new Calculator(inputs);
-        calculator.calculate();
     }
 
 }

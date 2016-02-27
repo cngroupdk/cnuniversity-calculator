@@ -4,9 +4,9 @@ import org.apache.commons.lang3.StringUtils;
 import dk.cngroup.university.exception.MalformedInputException;
 import dk.cngroup.university.input.iface.IGeneralInput;
 import dk.cngroup.university.input.DoneSignal;
-import dk.cngroup.university.input.NumberInput;
-import dk.cngroup.university.input.operation.Adding;
-import dk.cngroup.university.input.operation.Division;
+import dk.cngroup.university.input.calculator.NumberInput;
+import dk.cngroup.university.input.calculator.operation.Adding;
+import dk.cngroup.university.input.calculator.operation.Division;
 
 import java.io.InputStream;
 import java.util.Scanner;

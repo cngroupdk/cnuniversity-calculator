@@ -1,6 +1,6 @@
-package dk.cngroup.university.input.operation;
+package dk.cngroup.university.input.calculator.operation;
 
-import dk.cngroup.university.input.Operation;
+import dk.cngroup.university.input.calculator.Operation;
 
 public class Adding extends Operation {
 

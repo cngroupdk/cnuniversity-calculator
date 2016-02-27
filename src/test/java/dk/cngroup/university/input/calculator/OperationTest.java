@@ -1,9 +1,9 @@
-package dk.cngroup.university.input;
+package dk.cngroup.university.input.calculator;
 
 
 import dk.cngroup.university.exception.DivisionByZeroException;
-import dk.cngroup.university.input.operation.Adding;
-import dk.cngroup.university.input.operation.Division;
+import dk.cngroup.university.input.calculator.operation.Adding;
+import dk.cngroup.university.input.calculator.operation.Division;
 import org.junit.Assert;
 import org.junit.Test;
 

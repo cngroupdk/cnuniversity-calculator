@@ -1,12 +1,12 @@
 package dk.cngroup.university;
 
 import dk.cngroup.university.exception.MalformedInputException;
-import dk.cngroup.university.input.enumeration.InputType;
-import dk.cngroup.university.input.iface.IGeneralInput;
 import dk.cngroup.university.input.DoneSignal;
-import dk.cngroup.university.input.NumberInput;
-import dk.cngroup.university.input.operation.Adding;
-import dk.cngroup.university.input.operation.Division;
+import dk.cngroup.university.input.calculator.CalculatorInput;
+import dk.cngroup.university.input.calculator.NumberInput;
+import dk.cngroup.university.input.calculator.operation.Adding;
+import dk.cngroup.university.input.calculator.operation.Division;
+import dk.cngroup.university.input.iface.IGeneralInput;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -20,38 +20,44 @@ public class ParserTest {
         Parser p = new Parser(new ByteArrayInputStream("done\nasdf".getBytes()));
         IGeneralInput input = p.parseNextLine();
         Assert.assertTrue(input instanceof DoneSignal);
-        Assert.assertEquals(input.getType(), InputType.DONE);
+        Assert.assertFalse(input.isCalculatorInput());
     }
 
     @Test
     public void shouldReturnNumberInput() {
         Parser p = new Parser(new ByteArrayInputStream("85\nasdf".getBytes()));
         IGeneralInput input = p.parseNextLine();
-        Assert.assertEquals(input.getType(), InputType.NUMBER);
+        Assert.assertTrue(input.isCalculatorInput());
+        Assert.assertTrue(input instanceof NumberInput);
     }
 
     @Test
     public void shouldReturnCorrectNumberInput() {
         Parser p = new Parser(new ByteArrayInputStream("85\nasdf".getBytes()));
         IGeneralInput input = p.parseNextLine();
-        Assert.assertEquals(input.getType(), InputType.NUMBER);
-        Assert.assertEquals(85, ((NumberInput)input).getNumber());
+        Assert.assertTrue(input.isCalculatorInput());
+        Assert.assertTrue(input instanceof NumberInput);
+        Assert.assertEquals(85, ((NumberInput) input).getNumber());
     }
 
     @Test
     public void shouldReturnAddingOperation() {
         Parser p = new Parser(new ByteArrayInputStream("add\nasdf".getBytes()));
         IGeneralInput input = p.parseNextLine();
-        Assert.assertEquals(input.getType(), InputType.OPERATION);
-        Assert.assertTrue(input instanceof Adding);
+        Assert.assertTrue(input.isCalculatorInput());
+        CalculatorInput cInput = (CalculatorInput)input;
+        Assert.assertTrue(cInput.isOperation());
+        Assert.assertTrue(cInput instanceof Adding);
     }
 
     @Test
     public void shouldReturnDivisionOperation() {
         Parser p = new Parser(new ByteArrayInputStream("divide\nasdf".getBytes()));
         IGeneralInput input = p.parseNextLine();
-        Assert.assertEquals(input.getType(), InputType.OPERATION);
-        Assert.assertTrue(input instanceof Division);
+        Assert.assertTrue(input.isCalculatorInput());
+        CalculatorInput cInput = (CalculatorInput)input;
+        Assert.assertTrue(cInput.isOperation());
+        Assert.assertTrue(cInput instanceof Division);
     }
 
     @Test(expected = MalformedInputException.class)
@@ -71,6 +77,6 @@ public class ParserTest {
         input = p.parseNextLine();
         Assert.assertEquals(3, ((NumberInput)input).getNumber());
         input = p.parseNextLine();
-        Assert.assertEquals(input.getType(), InputType.DONE);
+        Assert.assertFalse(input.isCalculatorInput());
     }
 }
