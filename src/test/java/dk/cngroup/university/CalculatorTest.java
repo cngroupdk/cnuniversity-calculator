@@ -16,12 +16,12 @@ public class CalculatorTest {
 
     @Test(expected = NoInputsException.class)
     public void testCalculateEmptyInputs() {
-        new Calculator(new LinkedList<NumberInput>()).calculate();
+        new Calculator(new LinkedList<>()).calculate();
     }
 
     @Test
     public void testCalculate() {
-        LinkedList<NumberInput> inputs = new LinkedList<NumberInput>();
+        LinkedList<NumberInput> inputs = new LinkedList<>();
         inputs.add(new NumberInput(4));
         inputs.add(new NumberInput(5));
         Calculator calculator = new Calculator(inputs);
@@ -30,13 +30,13 @@ public class CalculatorTest {
 
     @Test
     public void testTwoCalculations() {
-        LinkedList<NumberInput> inputs = new LinkedList<NumberInput>();
+        LinkedList<NumberInput> inputs = new LinkedList<>();
         inputs.add(new NumberInput(1));
         inputs.add(new NumberInput(2));
         Calculator calculator = new Calculator(inputs);
         Assert.assertEquals(3, calculator.calculate());
 
-        inputs = new LinkedList<NumberInput>();
+        inputs = new LinkedList<>();
         inputs.add(new NumberInput(4));
         inputs.add(new NumberInput(2));
         calculator.setInputs(inputs);

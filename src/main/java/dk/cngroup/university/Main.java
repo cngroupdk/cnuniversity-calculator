@@ -21,7 +21,7 @@ public class Main {
         }
 
 		try {
-            List<NumberInput> inputs = new LinkedList<NumberInput>();
+            List<NumberInput> inputs = new LinkedList<>();
 			CalculatorInput input = parser.parseNextLine();
 			while (!input.isDone()) {
                 inputs.add((NumberInput)input);
