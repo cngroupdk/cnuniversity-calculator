@@ -1,6 +1,6 @@
 package dk.cngroup.university.exception;
 
-public class MalformedInputException extends RuntimeException {
+public class MalformedInputException extends AbstractCalculatorException {
 
     @Override
     public String getMessage() {

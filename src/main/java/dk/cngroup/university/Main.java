@@ -1,5 +1,6 @@
 package dk.cngroup.university;
 
+import dk.cngroup.university.exception.AbstractCalculatorException;
 import dk.cngroup.university.exception.MalformedInputException;
 import dk.cngroup.university.exception.NoInputsException;
 import dk.cngroup.university.input.CalculatorInput;
@@ -31,9 +32,7 @@ public class Main {
             Calculator calculator = new Calculator(inputs);
             System.out.println(calculator.calculate());
 
-		} catch (MalformedInputException e) {
-			System.out.println(e.getMessage());
-        } catch (NoInputsException e) {
+		} catch (AbstractCalculatorException e) {
             System.out.println(e.getMessage());
         }
 
