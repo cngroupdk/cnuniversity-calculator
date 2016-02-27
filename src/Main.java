@@ -9,10 +9,14 @@ public class Main {
 
 		Scanner scanner = new Scanner(System.in);
 
-		int number1 = convertStringToNumber(scanner.next());
-		int number2 = convertStringToNumber(scanner.next());
+		int result = 0;
+		String line = scanner.next();
+		while (!line.equals("done")) {
+			int number = convertStringToNumber(line);
+			result += number;
+			line = scanner.next();
+		}
 
-		int result = number1 + number2;
 
 		System.out.println(result);
 
